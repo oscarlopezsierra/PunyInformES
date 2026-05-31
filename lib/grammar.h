@@ -218,7 +218,6 @@ Verb 'da' 'dale' 'ofrece'
 #ifV3;
 Verb 'anda' 'camina' 'corre' 'ir' 've' 'vete'
 	'andar' 'correr'
-    *                                   -> Go
     * noun=ADirection                   -> Go
     * 'a//' noun=ADirection           	-> Go
     * 'hacia' noun=ADirection           -> Go
@@ -228,7 +227,6 @@ Verb 'anda' 'camina' 'corre' 'ir' 've' 'vete'
     * 'por' noun                        -> Enter;
 #Ifnot;
 Verb 'anda' 'camina' 'corre' 'ir' 've' 'vete'
-    *                                   -> Go
     * noun=ADirection                   -> Go
     * 'a//' noun=ADirection           	-> Go
     * 'hacia' noun=ADirection           -> Go
