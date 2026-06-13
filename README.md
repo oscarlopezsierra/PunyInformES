@@ -29,10 +29,12 @@ desea tener un código que funcione tanto para V3 como para V5 será necesario e
 algo como esto:
 
 ```
-#ifV3;
+#Iftrue #version_number < 5;
+! V3 o V4
 Verb 'mira' 'mirar'
     *                                    		-> Look;
 #IfNot;
+! V5
 Verb 'mira'
     *                                    		-> Look;
 #EndIf;
@@ -41,7 +43,7 @@ Verb 'mira'
 * Hay que recordar que esto solo vale para infinitivos regulares. En el caso de
 "huele/oler" es necesario definir tanto el imperativo como el infinitivo. Asimismo,
 hay que recordar que en V3 el máximo tamaño de cada palabra de vocabulario son 6
-caracteres, y en V5 son 9. Si introducimos dos palabras que sean equivalentes para
+caracteres, y en V4 o V5 son 9. Si introducimos dos palabras que sean equivalentes para
 el diccionario, el compilador dará error. Ejemplo:
 
 ```
@@ -52,7 +54,7 @@ Verb 'examina' 'examinar'
 
 Verb 'balancearte' 'balancearse'
     *                                    		-> Swing;
-! Esto dará error tanto en V3 como en V5, porque sus 9 primeros caracteres
+! Esto dará error tanto en V3 como en V4 o V5, porque sus 9 primeros caracteres
 ! coinciden en las dos palabras.
 ```
 
