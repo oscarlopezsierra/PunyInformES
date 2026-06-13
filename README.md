@@ -24,7 +24,7 @@ y recomendamos usar la última versión disponible.
 * El parser intenta adivinar el infinitivo automáticamente solo en la versión V5.
 Para ello, elimina la última "r" de un verbo y comprueba si el imperativo resultante
 existe en el vocabulario. Esto solo servirá con verbos regulares, como "mira/mirar". 
-En V3, sin embargo, será necesario definir el infinitivo en todo caso. Si se
+En V3 o V4, sin embargo, será necesario definir el infinitivo en todo caso. Si se
 desea tener un código que funcione tanto para V3 como para V5 será necesario escribir
 algo como esto:
 
@@ -56,10 +56,10 @@ Verb 'balancearte' 'balancearse'
 ! coinciden en las dos palabras.
 ```
 
-* Hay dos instancias en las cuales el parser para V5 es ligera-
-mente mejor que para V3 en español: En V5 puede comprender sufijos -lo, -le, -la,
+* Hay dos instancias en las cuales el parser para V5 es ligeramente mejor que para V3
+y V4 en español: En V5 puede comprender sufijos -lo, -le, -la,
 -los, -les, -las, -te (como en "examina la caja y abrela" o en "examinate") pero no
-es así en V3. Y en V3 hay caracteres que no es posible introducir en las órdenes
+es así en V3 o V4. Y en V3 o V4 hay caracteres que no es posible introducir en las órdenes
 del jugador: á, é, í, ó, ú, ü, ñ, ç. Habrá que sustituirlos por los siguientes:
 a, e, i, o, u, u, n, c. Ejemplo: "examina llave pequena, examina ciguena".
 
