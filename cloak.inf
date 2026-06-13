@@ -16,6 +16,20 @@
 !	     Esta versión para INFORM escrita por Roger Firth el 17Sep99
 ! ============================================================================ !
 
+! Cuando se compila a z8, usa la librería estándar en su lugar
+!
+! Esto se hace para ofrecer un ejemplo de cómo escribir un juego que pueda utilizar
+! tanto la biblioteca estándar como PunyInform (se pueden ver algunas condiciones a lo
+! largo del código para ello).
+! Sin embargo, Puny se compila perfectamente en formato z8. Aunque muchos sistemas
+! clásicos de 8 bits no pueden utilizar archivos z8, algunos sí pueden, y esto te daría
+! mucho margen para un juego más grande. Este juego recurre a la biblioteca estándar
+! únicamente a modo de ejemplo, no para señalar una limitación.
+
+#Iftrue (#version_number == 8);
+Constant USEINFORM;
+Constant MANUAL_PRONOUNS;
+#Endif;
 
 Constant Story	  "La capa de oscuridad";
 Constant Headline   "^Una demostración básica de FI.^";
@@ -29,9 +43,19 @@ Constant INITIAL_LOCATION_VALUE = foyer;
 
 [ DeathMessage; print "Has perdido"; ];
 
+#Ifndef USEINFORM;
 
 Include "globals.h";
 Include "puny.h";
+
+#Endif;
+
+#Ifdef USEINFORM;
+
+Include "Parser";
+Include "VerbLib";
+
+#Endif;
 
 ! ============================================================================ !
 
@@ -74,7 +98,11 @@ Object  bar "Bar del vestíbulo"
 			Look, Inv, Going:
 				rfalse;
 			Go:
+#ifdef USEINFORM;
+				_test = self hasnt light && noun ~= n_obj;
+#IfNot;
 				_test = self hasnt light && selected_direction ~= n_to;
+#EndIf;
 				if (_test) {
 					message.number = message.number + 2;
 					"Andar dando tumbos en la oscuridad no es una buena idea.";
@@ -135,6 +163,9 @@ Object  message "mensaje garabateado" bar
   has   scenery;
 
 [ Initialise;
+#Ifdef USEINFORM; ! La localización se inicializa con INITIAL_LOCATION_VALUE en PunyInform
+	location = foyer;
+#Endif;
 	move cloak to player;
 	give cloak worn;
    "^^A través de la lluviosa noche de noviembre, te alegras de ver las
@@ -146,6 +177,9 @@ Object  message "mensaje garabateado" bar
 
 ! ============================================================================ !
 
+#Ifdef USEINFORM;
+Include "Grammar";
+#Endif;
 
 Verb 'cuelga' 'colgar' * held 'en' / 'de' noun	-> PutOn;
 

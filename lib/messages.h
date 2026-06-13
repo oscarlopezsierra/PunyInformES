@@ -1198,7 +1198,10 @@ MSG_RUB_DEFAULT, MSG_SQUEEZE_DEFAULT:
 #IfDef OPTIONAL_FULL_SCORE;
 		print ", dar la puntuación TOTAL para el juego";
 #EndIf;
-		if(AMUSING_PROVIDED == 0 && deadflag == 2) print ", ver sugerencias de cosas INTERESANTES para hacer (AMUSING)";
+#Ifdef Amusing;
+		if(AMUSING_PROVIDED == 0 && deadflag == GS_WIN) 
+			print ", ver sugerencias de CURIOSIDADES para hacer";
+#Endif;
 		print " o ACABAR? ";
 		rtrue;
 #EndIf;

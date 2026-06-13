@@ -1428,10 +1428,10 @@ Include "parser.h";
 #Ifdef OPTIONAL_MANUAL_SCOPE_BOOST;
 		_any = 2;
 #Endif;
-#IfDef DEBUG;
-#Iftrue #version_number < 5;
+#Ifdef DEBUG;
+!#Iftrue #version_number < 5;
 		if(debug_flag & 1) print "[ ~", (name) _obj, "~.",(property) p_property,"() ]^";
-#Endif;
+!#Endif;
 #Endif;
 		if(RunRoutines(_obj, p_property) && p_break) {
 			rtrue;
@@ -1448,9 +1448,9 @@ Include "parser.h";
 
 	if(location has reactive && location.&each_turn ~= 0) {
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 		if(debug_flag & 1) print "[ ~", (name) location, "~.each_turn() ]^";
-#Endif;
+!#Endif;
 #Endif;
 		RunRoutines(location, each_turn);
 	}
@@ -1484,9 +1484,9 @@ Include "parser.h";
 #EndIf;
 
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 	if(debug_flag & 1) print "[ player.orders() ]^";
-#Endif;
+!#Endif;
 #Endif;
 	if(RunRoutines(player, orders)) rtrue;
 
@@ -1508,20 +1508,20 @@ Include "parser.h";
 #Endif;
 
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 	if(debug_flag & 1) print "[ ~", (name) real_location, "~.before() ]^";
-#Endif;
+!#Endif;
 #Endif;	
 	if(real_location.&before) {
 		if(RunRoutines(real_location, before)) rtrue;
 	}
 	if(inp1 > 1) {
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 		if(debug_flag & 1) print "[ ~", (name) inp1, "~.before() ]^";
+!#Endif;
 #Endif;
-#Endif;
-		if(inp1.&before) {
+		if(inp1.&before && inp1 ~= real_location) {
 			if(RunRoutines(inp1, before)) rtrue;
 		}
 	}
@@ -1553,18 +1553,18 @@ Include "parser.h";
 #Endif;
 
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 	if(debug_flag & 1) print "[ ~", (name) real_location, "~.after() ]^";
-#Endif;
+!#Endif;
 #Endif;
 	if(real_location.&after) {
 		if(RunRoutines(real_location, after)) rtrue;
 	}
-	if(inp1 > 1) {
+	if(inp1 > 1 && inp1 ~= real_location) {
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 		if(debug_flag & 1) print "[ ~", (name) inp1, "~.after() ]^";
-#Endif;
+!#Endif;
 #Endif;
 		if(inp1.&after) {
 			if(RunRoutines(inp1, after)) rtrue;
@@ -1581,9 +1581,9 @@ Include "parser.h";
 
 [ RunLife p_actor p_reason;
 #Ifdef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 	if(debug_flag & 1 && p_actor provides life) print "[ ~", (name) p_actor, "~.life() ]^";
-#Endif;
+!#Endif;
 #Endif;
 	return RunRoutines(p_actor, life, p_reason);
 ];
@@ -2467,7 +2467,9 @@ Object selfobj "tú"
 		each_turn NULL,
 		time_out NULL,
 		describe NULL,
+#Ifndef OPTIONAL_NO_ADD_TO_SCOPE;
 		add_to_scope 0,
+#Endif;
 		capacity MAX_CARRIED,
 		parse_name 0,
 		orders 0,
@@ -2608,8 +2610,10 @@ Object thedark "Oscuridad"
 		@jz _v ?~is_reactive;
 		@get_prop_addr _i each_turn -> _v;
 		@jz _v ?~is_reactive;
+#Ifndef OPTIONAL_NO_ADD_TO_SCOPE;
 		@get_prop_addr _i add_to_scope -> _v;
 		@jz _v ?~is_reactive;
+#Endif;
 #Ifdef OPTIONAL_REACTIVE_PARSE_NAME;
 		@get_prop_addr _i parse_name -> _v;
 		@jz _v ?~is_reactive;
@@ -2908,7 +2912,8 @@ Object thedark "Oscuridad"
 		if(verb_word == 'reiniciar') @restart;
 		if(verb_word == 'cargar') <Restore>;
 #Ifdef Amusing;
-		if(AMUSING_PROVIDED == 0 && deadflag == 2 && verb_word == 'interesantes') Amusing();
+		if(AMUSING_PROVIDED == 0 && deadflag == GS_WIN && verb_word == 'curiosidades') 
+			Amusing();
 #Endif;
 		if(verb_word == 'acabar') @quit;
 #IfDef OPTIONAL_FULL_SCORE;

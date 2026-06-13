@@ -247,9 +247,14 @@ Property individual cheap_scenery;
 	rtrue;
 !._didnt_match_word_in_array;
 #Ifnot;
-	for(_i = 0 : _i < p_count : _i++)
-		if(p_array-->_i == p_value)
-			rtrue;
+!	for(_i = 0 : _i < p_count : _i++)
+	_i = p_count - 1;
+._next_val;
+	p_count = p_array-->_i;
+	@je p_count p_value ?rtrue;
+	@dec_chk _i 0 ?~_next_val;
+!		if(p_array-->_i == p_value)
+!			rtrue;
 	rfalse;
 #Endif;
 ];
@@ -261,12 +266,14 @@ Property individual cheap_scenery;
 		_base = _matched;
 		if(_CSFindInArr(_w, p_arr, p_count)) {
 			_matched++;
+#Ifdef dict_start;
 			if((_w-> #dict_par1) & 4) {
 				if(CSDATA-->CSDATA_PRONOUN_TEMP == CS_FEM or CS_FEM_THEM)
 					CSDATA-->CSDATA_PRONOUN_TEMP = CS_FEM_THEM;
 				else
 					CSDATA-->CSDATA_PRONOUN_TEMP = CS_THEM;
 			}
+#Endif;
 			_w = NextWord();
 		} else
 			return _matched;
@@ -451,16 +458,20 @@ Property individual cheap_scenery;
 #Endif;
 			_self_bak = self;
 			self = location;
+#Ifdef parser_action;
 			parser_action = 0;
+#Endif;
 			_ret = _sw2();
 			self = _self_bak;
 			if(_ret > _longest) {
+#Ifdef parser_action;
 				if(parser_action == ##PluralFound) {
 					if(CSDATA-->CSDATA_PRONOUN_TEMP == CS_FEM)
 						CSDATA-->CSDATA_PRONOUN_TEMP = CS_FEM_THEM;
 					else
 						CSDATA-->CSDATA_PRONOUN_TEMP = CS_THEM;
 				}
+#Endif;
 				jump _cs_found_a_match;
 			}
 		} else if(_sw1 > 0 && _sw1 < 100) {
@@ -597,8 +608,10 @@ Object CheapScenery
 			if(SceneryReply(_w1, _w2, _id_or_routine))
 				rtrue;
 #endif;
+._printDefaultReply;
 			if(IsARoutine(CS_DEFAULT_MSG)) {
-				CS_DEFAULT_MSG.Call();
+!				CS_DEFAULT_MSG.Call();
+				indirect(CS_DEFAULT_MSG);
 				rtrue;
 			}
 			print_ret (string) CS_DEFAULT_MSG;
@@ -626,11 +639,16 @@ Object CheapScenery
 #Ifdef DEBUG;
 
 [CSDebugIsDictWord p_val;
+#Ifdef dict_start;
 	if (UnsignedCompare(p_val, dict_start) >= 0 &&
 			UnsignedCompare(p_val, dict_end) < 0 &&
 			(p_val - dict_start) % dict_entry_size == 0)
 		rtrue;
 	rfalse;
+#Ifnot;
+	p_val = 0; ! Avoid warning
+	rtrue;
+#Endif;
 ];
 
 [ CSDebugPrintObjRef p_obj p_prop p_index;

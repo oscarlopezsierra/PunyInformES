@@ -1,6 +1,28 @@
 Próxima publicación:
 
 =======
+v2.7:
+Cambios específicos de la versión española:
+- Corregir error al escribir 'ir' a secas (gracias DareInt).
+- Correcciones de errores de parseado y warnings de compilación al usar V4 en español.
+- Cambiado verbo de opción "interesantes" al final de una aventura por el más usual "curiosidades".
+- Corregido error que impedía que se pudiera usar tanto "reinicia" como "reiniciar" en V3, V4 y V5.
+
+Cambios heredados de PunyInform v6.7:
+- Se ha hecho opcional la compatibilidad con add_to_scope, controlada por la constante OPTIONAL_NO_ADD_TO_SCOPE.
+- Error corregido: al utilizar add_to_scope con una matriz, también se añadían los elementos secundarios de todos los objetos. Esto difería de DM4 y de la biblioteca estándar.
+- Se ha corregido un error: add_to_scope, al utilizar un procedimiento que añadía objetos con PlaceInScope, también comprobaba add_to_scope para los objetos añadidos. Esto difería de DM4 y de la biblioteca estándar.
+- Se han optimizado algunas rutinas de ámbito.
+- Se ha añadido una prueba para el manejo de add_to_scope.
+- Se han recuperado muchos mensajes para el verbo de depuración ROUTINES, que se habían perdido para z5+ en PunyInform v6.5.
+- Se ha mejorado la compatibilidad con otras bibliotecas, para las extensiones menu, talk_menu y cheap_scenery.
+- El verbo de depuración "purloin" (sustraer) no establecía scope_modified, por lo que el objeto sustraído podía acabar fuera del scope.
+- Se ha optimizado la coincidencia de nombres en la extensión cheap_scenery.
+- Se han mejorado las comprobaciones para "curiosidades".
+- Se ha mejorado el almacenamiento de texto en "La biblioteca de los horrores".
+- Se ha corregido un error: la extensión cheap_scenery podía intentar imprimir CS_DEFAULT_MSG como una cadena incluso si se trataba de una rutina.
+
+=======
 v2.6:
 Cambios específicos de la versión española:
 - Modifica el mensaje de SKIP_MSG_OPEN_YOU_CANT, MSG_OPEN_YOU_CANT, MSG_CLOSE_YOU_CANT, MSG_ENTER_YOU_CANT, MSG_LOCK_NOT_A_LOCK, MSG_UNLOCK_NOT_A_LOCK, MSG_WEAR_NOT_CLOTHING para que se imprima de forma gramaticalmente correcta.

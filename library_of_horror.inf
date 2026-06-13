@@ -3,33 +3,53 @@
 !% $OMIT_UNUSED_ROUTINES=1
 !% $ZCODE_LESS_DICT_DATA=1
 !% $MAX_ABBREVS=96
+!% $ZCODE_MAX_INLINE_STRING=9999
+!% $LONG_DICT_FLAG_BUG=0
+!% $ZCODE_COMPACT_GLOBALS=1
 !% $TRANSCRIPT_FORMAT=1
-!!% $ZCODE_MAX_INLINE_STRING=9999    ! Requiere Inform 6.42
-!!% $OMIT_SYMBOL_TABLE=1             ! Requiere Inform 6.42, y no puede usarse con DEBUG
+!!% $OMIT_SYMBOL_TABLE=1             ! No puede usarse con DEBUG
 
-! Las primeras líneas del archivo de código fuente principal de un juego pueden
-! contener opciones de compilador, como las líneas anteriores.
-! -Cu permite que se usen caracteres acentuados.
-! -~S desactiva la comprobación estricta de errores. Esto se utiliza en los juegos z5 y z8
-! por defecto. Aunque es útil para la depuración, añade ~10 KB al tamaño del archivo de la
-! historia y hace que el juego sea más lento.
-! $OMIT_UNUSED_ROUTINES=1 hace que el compilador elimine todas las rutinas que
-! no se usan. Esto puede ahorrar algo de espacio.
-! $ZCODE_LESS_DICT_DATA=1 elimina un byte de datos vacío por cada palabra del diccionario
-! $MAX_ABBREVS=96 aumenta el número máximo de abreviaturas de 64 a 96, eliminando la opción
-! de usar 32 cadenas dinámicas.
-! @ZCODE_MAX_INLINE_STRING=9999 hace que el compilador coloque todas las cadenas usadas en
-! código en línea con el código, en lugar de colocar las cadenas más largas en el área de
-! cadenas de memoria alta. Esto ahorra algunos bytes. 
+! Library_of_horror.inf: un juego de ejemplo que utiliza PunyInform
+! Diseñado para compilarse con Inform v6.44+ y PunyInform v6.7.
+
+! Las primeras líneas del archivo de código fuente principal de un juego pueden contener
+! opciones del compilador, como las líneas anteriores. Esto es lo que hemos incluido aquí:
+!
+! -Cu
+!   Permite que se usen caracteres acentuados.
+! -~S
+!   Desactiva la comprobación estricta de errores. De lo contrario, se utiliza en los juegos z5 y z8
+!   de forma predeterminada. Aunque es útil para la depuración, añade unos 10 KB al tamaño del archivo de la historia
+!   y ralentiza el juego.
+! $OMIT_UNUSED_ROUTINES=1
+!   Indica al compilador que elimine todas las rutinas que no se utilicen. Esto puede ahorrar
+!   algo de espacio.
+! ZCODE_LESS_DICT_DATA=1
+!   elimina un byte de datos vacío por cada palabra del diccionario
+! $MAX_ABBREVS=96
+!   Aumenta el número máximo de abreviaturas de 64 a 96, eliminando la
+!   opción de usar 32 cadenas dinámicas
+! $ZCODE_MAX_INLINE_STRING=9999
+!   Coloca todas las cadenas utilizadas en el código en línea con el código, en lugar de colocar
+!   las cadenas más largas en el área de cadenas de la memoria alta. Esto ahorra algunos bytes. 
+! $LONG_DICT_FLAG_BUG=0
+!   Corrige un error del compilador que hacía que este ignorara los indicadores de palabra en palabras
+!   más largas que la resolución del diccionario (6 o 9 caracteres).
+! $ZCODE_COMPACT_GLOBALS=1
+!   No reservar espacio para variables globales que no sean utilizadas por el juego.
+! $TRANSCRIPT_FORMAT=1
+!   Si compilamos con -r (escribir todo el texto del juego en «gametext.txt»), utilizar el
+!   formato de archivo que Zabbrev puede leer, para crear abreviaturas.
 
 ! A menos que se compile en modo DEBUG, también se puede definir $OMIT_SYMBOL_TABLE=1 para
 ! decirle al compilador que no incluya nombres de propiedades, atributos y demás,
 ! ahorrando así algo de espacio.
 
-! Abbreviaciones creadas con ZAbbrevMaker 0.11 - https://github.com/heasm66/ZAbbrevMaker
+! Abbreviaciones creadas con ZAbbrev 0.12(dev) - https://github.com/heasm66/zabbrev
 Constant CUSTOM_ABBREVIATIONS;
 
-#IfV5;
+#Iftrue #version_number > 4;
+! V5
 
 Zcharacter
     "abcdefghij.lmnopqrstuv,áyí"
@@ -38,205 +58,208 @@ Zcharacter
 
 Abbreviate "Donde viven los monstruos";     !     2x26, saved    21
 Abbreviate " La única salida es";           !     3x21, saved    36
+Abbreviate " de Maurice Sendak";            !     2x21, saved    17
 Abbreviate "caja de cartón";                !     4x15, saved    37
-Abbreviate "la oscuridad";                  !     6x12, saved    48
-Abbreviate "a habitación";                  !    18x13, saved   183
 Abbreviate "a biblioteca";                  !    20x12, saved   188
+Abbreviate "a habitación";                  !    18x13, saved   183
+Abbreviate "la oscuridad";                  !     6x12, saved    48
 Abbreviate "os símbolos ";                  !     4x12, saved    28
-Abbreviate " dentro de ";                   !     6x11, saved    42
-Abbreviate "Sin embargo";                   !     3x12, saved    18
+Abbreviate "Sin embargo,";                  !     3x13, saved    18
+Abbreviate " estantería";                   !     7x11, saved    51
+Abbreviate "PunyInform";                    !     3x12, saved    18
 Abbreviate "No puedes ";                    !    12x11, saved    96
 Abbreviate "as paredes";                    !    12x10, saved    84
-Abbreviate "PunyInform";                    !     3x12, saved    18
-Abbreviate "encargado";                     !     9x 9, saved    54
 Abbreviate "as llamas";                     !     8x 9, saved    47
-Abbreviate "estanterí";                     !     7x 9, saved    40
-Abbreviate " ardiendo";                     !     5x 9, saved    26
-Abbreviate "edificio";                      !     6x 8, saved    27
-Abbreviate "escalera";                      !     9x 8, saved    45
+Abbreviate "encargado";                     !     9x 9, saved    54
 Abbreviate " cerrojo";                      !     5x 8, saved    21
+Abbreviate "edificio";                      !     6x 8, saved    27
 Abbreviate " empieza";                      !     4x 9, saved    19
+Abbreviate "hay nada";                      !     7x 8, saved    33
+Abbreviate "escalera";                      !     9x 8, saved    45
 Abbreviate ", señor";                       !     8x 8, saved    39
 Abbreviate "también";                       !     6x 8, saved    27
+Abbreviate "necesit";                       !     6x 7, saved    21
 Abbreviate " parece";                       !    21x 7, saved    96
-Abbreviate "cerrad";                        !     9x 6, saved    30
-Abbreviate " sobre";                        !    12x 6, saved    42
-Abbreviate "terior";                        !     7x 6, saved    22
-Abbreviate "ciones";                        !     7x 6, saved    22
-Abbreviate "trabaj";                        !     9x 6, saved    30
-Abbreviate " llega";                        !     7x 6, saved    22
-Abbreviate "sótano";                        !     8x 7, saved    31
-Abbreviate " mismo";                        !     6x 6, saved    18
+Abbreviate " hacia";                        !     7x 6, saved    22
 Abbreviate " oscur";                        !    10x 6, saved    34
+Abbreviate "cerrad";                        !     9x 6, saved    30
+Abbreviate "trabaj";                        !     9x 6, saved    30
+Abbreviate " sobre";                        !    12x 6, saved    42
+Abbreviate " para ";                        !    14x 6, saved    50
 Abbreviate " ahora";                        !     9x 6, saved    30
-Abbreviate " para ";                        !    13x 6, saved    46
+Abbreviate "ciones";                        !     7x 6, saved    22
+Abbreviate " mismo";                        !     6x 6, saved    18
 Abbreviate " puede";                        !    14x 6, saved    50
-Abbreviate "ecesit";                        !     6x 6, saved    18
 Abbreviate "primer";                        !     6x 6, saved    18
-Abbreviate " salir";                        !     6x 6, saved    18
-Abbreviate "Pero ";                         !     9x 6, saved    30
-Abbreviate "ando ";                         !    21x 5, saved    57
-Abbreviate "libro";                         !    23x 5, saved    63
-Abbreviate "Frank";                         !    13x 7, saved    56
-Abbreviate " nada";                         !    21x 5, saved    57
-Abbreviate " del ";                         !    34x 5, saved    96
-Abbreviate " una ";                         !    32x 5, saved    90
 Abbreviate " más ";                         !    13x 5, saved    33
-Abbreviate " que ";                         !    65x 5, saved   189
-Abbreviate " aquí";                         !    10x 5, saved    24
+Abbreviate " las ";                         !    15x 5, saved    39
+Abbreviate "mente";                         !    28x 5, saved    78
+Abbreviate "ótano";                         !     9x 6, saved    30
+Abbreviate " por ";                         !    20x 5, saved    54
+Abbreviate " del ";                         !    34x 5, saved    96
+Abbreviate "Frank";                         !    13x 7, saved    56
+Abbreviate "ando ";                         !    19x 5, saved    51
+Abbreviate " que ";                         !    70x 5, saved   204
+Abbreviate " está";                         !    40x 5, saved   114
 Abbreviate "direc";                         !    10x 5, saved    24
-Abbreviate " las ";                         !    19x 5, saved    51
-Abbreviate " está";                         !    38x 5, saved   108
-Abbreviate " de l";                         !    35x 5, saved    99
-Abbreviate "as de";                         !    18x 5, saved    48
-Abbreviate " est";                          !    15x 4, saved    24
-Abbreviate "ente";                          !    49x 4, saved    92
+Abbreviate " de l";                         !    38x 5, saved   108
+Abbreviate "libro";                         !    23x 5, saved    63
+Abbreviate " una ";                         !    30x 5, saved    84
+Abbreviate " aquí";                         !    11x 5, saved    27
+Abbreviate "nada";                          !    19x 4, saved    32
 Abbreviate "ción";                          !    19x 5, saved    51
-Abbreviate " un ";                          !    34x 4, saved    62
-Abbreviate " el ";                          !    59x 4, saved   112
-Abbreviate " con";                          !    59x 4, saved   112
-Abbreviate " la ";                          !    37x 4, saved    68
+Abbreviate " con";                          !    58x 4, saved   110
+Abbreviate "este";                          !    22x 4, saved    38
+Abbreviate " el ";                          !    58x 4, saved   110
+Abbreviate "ente";                          !    21x 4, saved    36
+Abbreviate " un ";                          !    32x 4, saved    58
+Abbreviate "ante";                          !    21x 4, saved    36
 Abbreviate " en ";                          !    42x 4, saved    78
-Abbreviate ". No";                          !     8x 5, saved    18
-Abbreviate " de ";                          !    66x 4, saved   126
-Abbreviate "ver ";                          !    10x 4, saved    14
-Abbreviate " no ";                          !    25x 4, saved    44
+Abbreviate " la ";                          !    33x 4, saved    60
+Abbreviate " no ";                          !    23x 4, saved    40
+Abbreviate " de ";                          !    82x 4, saved   158
 Abbreviate "_to/";                          !    12x 6, saved    42
-Abbreviate "able";                          !    11x 4, saved    16
+Abbreviate "ero ";                          !    21x 4, saved    36
 Abbreviate ". ^^";                          !    11x 6, saved    38
+Abbreviate " lle";                          !    14x 4, saved    22
+Abbreviate " des";                          !    25x 4, saved    44
+Abbreviate "entr";                          !    24x 4, saved    42
 Abbreviate "uego";                          !    21x 4, saved    36
-Abbreviate "est";                           !    47x 3, saved    44
-Abbreviate "ent";                           !    54x 3, saved    51
-Abbreviate "per";                           !    41x 3, saved    38
-Abbreviate " in";                           !    31x 3, saved    28
-Abbreviate "ier";                           !    20x 3, saved    17
-Abbreviate " en";                           !    35x 3, saved    32
-Abbreviate "No ";                           !    34x 4, saved    62
-Abbreviate "ara";                           !    13x 3, saved    10
+Abbreviate "able";                          !    12x 4, saved    18
 Abbreviate " co";                           !    28x 3, saved    25
-Abbreviate "as ";                           !    89x 3, saved    86
-Abbreviate " es";                           !    27x 3, saved    24
-Abbreviate "que";                           !    28x 3, saved    25
-Abbreviate "ida";                           !    22x 3, saved    19
-Abbreviate "es ";                           !    26x 3, saved    23
-Abbreviate " ha";                           !    41x 3, saved    38
-Abbreviate "ado";                           !    49x 3, saved    46
-Abbreviate " a ";                           !    41x 3, saved    38
-Abbreviate "ien";                           !    34x 3, saved    31
-Abbreviate " de";                           !    41x 3, saved    38
-Abbreviate "te ";                           !    41x 3, saved    38
+Abbreviate "ier";                           !    20x 3, saved    17
+Abbreviate " es";                           !    25x 3, saved    22
+Abbreviate "ndo";                           !    32x 3, saved    29
+Abbreviate "sal";                           !    22x 3, saved    19
+Abbreviate "as ";                           !    92x 3, saved    89
+Abbreviate "No ";                           !    37x 4, saved    68
+Abbreviate " en";                           !    35x 3, saved    32
+Abbreviate "per";                           !    30x 3, saved    27
+Abbreviate "ver";                           !    21x 3, saved    18
+Abbreviate " in";                           !    34x 3, saved    31
+Abbreviate " y ";                           !    36x 3, saved    33
+Abbreviate "ida";                           !    23x 3, saved    20
+Abbreviate "est";                           !    38x 3, saved    35
+Abbreviate "ter";                           !    31x 3, saved    28
+Abbreviate "ado";                           !    51x 3, saved    48
+Abbreviate "es ";                           !    31x 3, saved    28
+Abbreviate " a ";                           !    42x 3, saved    39
+Abbreviate "te ";                           !    34x 3, saved    31
 Abbreviate "os ";                           !    36x 3, saved    33
-Abbreviate "por";                           !    33x 3, saved    30
-Abbreviate " al";                           !    53x 3, saved    50
-Abbreviate " se";                           !    38x 3, saved    35
-Abbreviate "nte";                           !    26x 3, saved    23
+Abbreviate "ien";                           !    43x 3, saved    40
+Abbreviate " al";                           !    54x 3, saved    51
+Abbreviate " se";                           !    40x 3, saved    37
 Abbreviate "El ";                           !    19x 4, saved    32
 Abbreviate "Es";                            !    31x 3, saved    28
+Abbreviate "No";                            !    23x 3, saved    20
 
 #IfNot;
-! V3
+! V3 o V4
 
-Abbreviate ". La única salid";              !     3x21, saved    36
+Abbreviate ". La única salida ";            !     3x23, saved    39
 Abbreviate "caja de cartón";                !     4x17, saved    42
 Abbreviate "Sin embargo,";                  !     3x14, saved    21
-Abbreviate "a biblioteca";                  !    20x12, saved   188
 Abbreviate "os símbolos ";                  !     4x15, saved    37
 Abbreviate "a habitación";                  !    18x15, saved   219
+Abbreviate "a biblioteca";                  !    20x12, saved   188
 Abbreviate " estantería";                   !     7x14, saved    69
-Abbreviate " dentro de ";                   !     6x11, saved    42
+Abbreviate "a oscuridad";                   !     6x11, saved    42
 Abbreviate "as paredes";                    !    12x10, saved    84
-Abbreviate "encargado";                     !     9x 9, saved    54
 Abbreviate " ardiendo";                     !     5x 9, saved    26
 Abbreviate "as llamas";                     !     8x 9, saved    47
+Abbreviate "encargado";                     !     9x 9, saved    54
 Abbreviate "edificio";                      !     6x 8, saved    27
-Abbreviate " inquiet";                      !     4x 8, saved    15
 Abbreviate "escalera";                      !     9x 8, saved    45
-Abbreviate "necesit";                       !     6x 7, saved    21
 Abbreviate "puedes ";                       !    17x 7, saved    76
-Abbreviate "también";                       !     6x10, saved    36
 Abbreviate " parece";                       !    21x 7, saved    96
+Abbreviate "también";                       !     6x10, saved    36
 Abbreviate ", señor";                       !     8x11, saved    60
+Abbreviate "trabaj";                        !     9x 6, saved    30
 Abbreviate " para ";                        !    14x 6, saved    50
 Abbreviate " sobre";                        !    12x 6, saved    42
-Abbreviate " oscur";                        !    16x 6, saved    58
-Abbreviate "trabaj";                        !     9x 6, saved    30
-Abbreviate "cerrad";                        !     9x 6, saved    30
-Abbreviate "sótano";                        !     8x 9, saved    47
+Abbreviate " oscur";                        !    10x 6, saved    34
 Abbreviate "pequeñ";                        !     5x 9, saved    26
-Abbreviate "primer";                        !     6x 6, saved    18
-Abbreviate "as de ";                        !    13x 6, saved    46
+Abbreviate "cerrad";                        !     9x 6, saved    30
 Abbreviate "ciones";                        !     7x 6, saved    22
 Abbreviate " ahora";                        !     9x 6, saved    30
 Abbreviate " hacia";                        !     7x 6, saved    22
-Abbreviate "salir";                         !     9x 5, saved    21
-Abbreviate "mente";                         !    28x 5, saved    78
-Abbreviate "Frank";                         !    13x 6, saved    46
-Abbreviate "ando ";                         !    22x 5, saved    60
-Abbreviate " está";                         !    41x 8, saved   237
-Abbreviate "libro";                         !    23x 5, saved    63
-Abbreviate " por ";                         !    20x 5, saved    54
-Abbreviate " más ";                         !    13x 8, saved    69
-Abbreviate " una ";                         !    30x 5, saved    84
+Abbreviate "puede ";                        !     6x 6, saved    18
+Abbreviate "ecesit";                        !     6x 6, saved    18
+Abbreviate "primer";                        !     6x 6, saved    18
 Abbreviate " aquí";                         !    11x 8, saved    57
+Abbreviate "as de";                         !    17x 5, saved    45
+Abbreviate "libro";                         !    23x 5, saved    63
+Abbreviate "ando ";                         !    21x 5, saved    57
 Abbreviate " que ";                         !    70x 5, saved   204
+Abbreviate " más ";                         !    13x 8, saved    69
+Abbreviate " está";                         !    40x 8, saved   231
+Abbreviate "Frank";                         !    13x 6, saved    46
+Abbreviate " por ";                         !    20x 5, saved    54
 Abbreviate " del ";                         !    34x 5, saved    96
-Abbreviate " de l";                         !    35x 5, saved    99
-Abbreviate " nada";                         !    21x 5, saved    57
-Abbreviate " no ";                          !    25x 4, saved    44
-Abbreviate "ero ";                          !    21x 4, saved    36
-Abbreviate "ante";                          !    21x 4, saved    36
-Abbreviate " un ";                          !    32x 4, saved    58
+Abbreviate " de l";                         !    38x 5, saved   108
+Abbreviate "ótano";                         !     9x 8, saved    45
+Abbreviate "mente";                         !    28x 5, saved    78
+Abbreviate " nada";                         !    22x 5, saved    60
+Abbreviate "direc";                         !    10x 5, saved    24
+Abbreviate " una ";                         !    29x 5, saved    81
+Abbreviate " se ";                          !    27x 4, saved    48
 Abbreviate "ción";                          !    19x 7, saved    86
-Abbreviate " en ";                          !    41x 4, saved    76
-Abbreviate " con";                          !    58x 4, saved   110
-Abbreviate " des";                          !    24x 4, saved    42
+Abbreviate " un ";                          !    32x 4, saved    58
+Abbreviate "ante";                          !    21x 4, saved    36
+Abbreviate "ero ";                          !    20x 4, saved    34
 Abbreviate "_to/";                          !    12x 6, saved    42
+Abbreviate " de ";                          !    70x 4, saved   134
+Abbreviate "able";                          !    12x 4, saved    18
+Abbreviate " la ";                          !    37x 4, saved    68
 Abbreviate "uego";                          !    21x 4, saved    36
+Abbreviate " no ";                          !    22x 4, saved    38
 Abbreviate " el ";                          !    60x 4, saved   114
-Abbreviate " la ";                          !    35x 4, saved    64
-Abbreviate " de ";                          !    68x 4, saved   130
-Abbreviate "No ";                           !    52x 4, saved    98
+Abbreviate " con";                          !    58x 4, saved   110
+Abbreviate " en ";                          !    41x 4, saved    76
 Abbreviate "ado";                           !    43x 3, saved    40
-Abbreviate "os ";                           !    42x 3, saved    39
-Abbreviate "as ";                           !   116x 3, saved   113
-Abbreviate "est";                           !    51x 3, saved    48
-Abbreviate "ent";                           !    72x 3, saved    69
-Abbreviate "ien";                           !    36x 3, saved    33
-Abbreviate "de ";                           !    25x 3, saved    22
-Abbreviate " a ";                           !    45x 3, saved    42
-Abbreviate "per";                           !    25x 3, saved    22
-Abbreviate "er ";                           !    26x 3, saved    23
-Abbreviate "lo ";                           !    24x 3, saved    21
-Abbreviate "ida";                           !    26x 3, saved    23
-Abbreviate " y ";                           !    42x 3, saved    39
-Abbreviate " al";                           !    54x 3, saved    51
-Abbreviate "ter";                           !    29x 3, saved    26
-Abbreviate "rec";                           !    26x 3, saved    23
-Abbreviate "aña";                           !     9x 6, saved    30
-Abbreviate "El ";                           !    19x 4, saved    32
-Abbreviate "te ";                           !    48x 3, saved    45
-Abbreviate "or ";                           !    20x 3, saved    17
+Abbreviate "ent";                           !    77x 3, saved    74
+Abbreviate "as ";                           !   115x 3, saved   112
+Abbreviate "os ";                           !    39x 3, saved    36
+Abbreviate "No ";                           !    49x 4, saved    92
+Abbreviate "est";                           !    57x 3, saved    54
 Abbreviate "ert";                           !    21x 3, saved    18
-Abbreviate "es ";                           !    33x 3, saved    30
-Abbreviate "se ";                           !    38x 3, saved    35
-Abbreviate "^^";                            !    21x 4, saved    36
+Abbreviate "te ";                           !    46x 3, saved    43
+Abbreviate "aña";                           !     9x 6, saved    30
+Abbreviate "era";                           !    16x 3, saved    13
+Abbreviate "per";                           !    20x 3, saved    17
+Abbreviate " al";                           !    55x 3, saved    52
+Abbreviate " y ";                           !    41x 3, saved    38
+Abbreviate "ter";                           !    29x 3, saved    26
+Abbreviate "lo ";                           !    23x 3, saved    20
+Abbreviate " a ";                           !    46x 3, saved    43
+Abbreviate "El ";                           !    19x 4, saved    32
+Abbreviate "er ";                           !    26x 3, saved    23
+Abbreviate "ien";                           !    36x 3, saved    33
+Abbreviate "ali";                           !    24x 3, saved    21
+Abbreviate "or ";                           !    20x 3, saved    17
+Abbreviate "es ";                           !    30x 3, saved    27
+Abbreviate " de";                           !    38x 3, saved    35
+Abbreviate "a.";                            !    25x 3, saved    22
+Abbreviate ", ";                            !    80x 3, saved    77
 Abbreviate "Es";                            !    31x 3, saved    28
 Abbreviate ". ";                            !   104x 3, saved   101
+Abbreviate "^^";                            !    21x 4, saved    36
 Abbreviate "o.";                            !    50x 3, saved    47
-Abbreviate ", ";                            !    83x 3, saved    80
-Abbreviate "a.";                            !    24x 3, saved    21
 Abbreviate "¿";                             !    13x 4, saved    20
 Abbreviate "¡";                             !    28x 4, saved    50
 Abbreviate "í";                             !    66x 4, saved   126
-Abbreviate "á";                             !    45x 4, saved    84
+Abbreviate "á";                             !    46x 4, saved    86
 Abbreviate "ú";                             !    15x 4, saved    24
 Abbreviate "é";                             !    29x 4, saved    52
-Abbreviate "ó";                             !    20x 4, saved    34
+Abbreviate "ó";                             !    19x 4, saved    32
 
 #EndIf;
 
-! Library_of_horror.inf - un juego de ejemplo que usa PunyInform
-
+! Podemos reducir el tamaño del archivo del juego creando constantes para algunos textos más largos 
+! que se utilizan varias veces.
+Constant TXT_SHORT_OF_BREATH
+	"Cuando te falta el aliento y el calor te hace perder el conocimiento,
+	lo último que oyes es una risa a lo lejos...";
 
 ! ====================================
 ! Configurar constantes para personalizar PunyInform
@@ -247,6 +270,7 @@ Abbreviate "ó";                             !    20x 4, saved    34
 !Constant OPTIONAL_EXTENDED_METAVERBS;
 !Constant OPTIONAL_EXTENDED_VERBSET;
 !Constant OPTIONAL_GUESS_MISSING_NOUN;
+!Constant OPTIONAL_NO_ADD_TO_SCOPE;
 Constant OPTIONAL_FULL_SCORE;
 Constant OPTIONAL_MANUAL_SCOPE;
 Constant OPTIONAL_MANUAL_SCOPE_BOOST;
@@ -260,11 +284,12 @@ Constant STATUSLINE_SCORE; Statusline score;
 
 Constant Story	  "La biblioteca de los horrores";
 Constant Headline   "^Un juego de demostración de PunyInform, por Pablo Martínez y Fredrik Ramsberg.^";
-Release 10;
-Serial "231010";
+Release 11;
+Serial "260530";
 
 ! Obtén tu propio IFID para tu juego en https://www.tads.org/ifidgen/ifidgen
-Array UUID_ARRAY string "UUID://24F3E924-37A0-4771-A9DF-376476D69ACE//"; #Ifdef UUID_ARRAY; #Endif;
+Array UUID_ARRAY string "UUID://24F3E924-37A0-4771-A9DF-376476D69ACE//";
+#Ifdef UUID_ARRAY; #Endif;
 
 Constant MAX_SCORE = 100;
 Constant TASKS_PROVIDED;
@@ -369,9 +394,6 @@ Array quote_darkchamber static --> 6 35
 "antes, y la está esperando."
 "              -- Terry Pratchett";
 
-
-
-
 ! ====================================
 ! Incluye puny.h
 ! ====================================
@@ -380,9 +402,6 @@ Include "puny.h";
 ! ====================================
 ! Clases, verbos etc para el juego
 ! ====================================
-
-! -- testing scope grammar token
-! See: https://www.inform-fiction.org/manual/html/s32.html
 
 ! Quemar está disponible en el conjunto de verbos ampliado, pero lo definiremos aquí
 ! en lugar de añadir el peso de todos esos nuevos verbos. Además, queremos que
@@ -505,8 +524,7 @@ Class MultiTopic
 				}
 				_i = _i + 3;
 			}
-			! Tendría sentido devolver 0 aquí, pero las rutinas de la propiedad
-			! devuelven 0 por defecto de todos modos.
+			return 0;
 		],
 		description [ _k;
 			_k = self.&topics-->(self.number + 2);
@@ -583,7 +601,7 @@ Object Library "La biblioteca"
 					del edificio, y al norte, se puede escapar al exterior.";
 			"La biblioteca parece sorprendentemente grande por dentro. Decenas de miles de valiosos
 			volúmenes antiguos. El aire parece cargado de polvo y olor a antigüedad.
-			^^ Al este, es posible adentrarse en el edificio. Al norte está la salida al exterior.";
+			^^Al este, es posible adentrarse en el edificio. Al norte está la salida al exterior.";
 		],
 		cheap_scenery
 			CS_THEM 'volumenes' 'libros' "Uno podría pasarse toda la vida leyendo sólo una parte de los libros de esta sala."
@@ -788,12 +806,16 @@ Object -> Frank "Frank el robot"
 					_dir_count = DIRECTION_COUNT - 4; ! Saltar las 4 últimas direcciones (u_to, d_to, in_to, out_to)
 					for(_i=1 : _i <= _dir_count : _i++) {
 						_dir_prop = direction_properties_array->_i;
-						if(_my_loc provides _dir_prop && _my_loc._dir_prop == location) {
+						if(_my_loc provides _dir_prop && 
+								_my_loc._dir_prop == location) {
 							move self to location;
 							scope_modified = true;
-							print "^Frank entra desde ", (string) opposite_directions-->_i, ".^";
-							if (location == RepairShop && WildThingsBook in Box && Box in location &&
-									FlagIsClear(F_FRANK_HAS_SEEN_BOOK)) {
+							print "^Frank entra desde ",
+							                (string) opposite_directions-->_i, ".^";
+							if (location == RepairShop &&
+							                WildThingsBook in Box &&
+											Box in location &&
+									        FlagIsClear(F_FRANK_HAS_SEEN_BOOK)) {
 								SetFlag(F_FRANK_HAS_SEEN_BOOK);
 								print "^~¡Oh, aquí está, señor! ¡El libro que pidió el maestro! Justo
 									dentro de esa caja de cartón!~^";
@@ -828,10 +850,11 @@ Object Hallway "Pasillo"
 	with
 		description [;
 			if(FlagIsSet(F_STARTED_FIRE))
-				"Las paredes del pasillo arden ferozmente, desde las escaleras al oeste hasta la habitación al
-					sur. El calor es sofocante.";
-			"Un amplio pasillo conduce desde las escaleras al oeste hasta otra habitación al sur. Hay
-				algunas puertas polvorientas a lo largo de las paredes, pero todas han sido cerradas con clavos hace mucho tiempo.";
+				"Las paredes del pasillo arden ferozmente, desde las escaleras al oeste hasta
+				la habitación al sur. El calor es sofocante.";
+			"Un amplio pasillo conduce desde las escaleras al oeste hasta otra habitación al
+				sur. Hay algunas puertas polvorientas a lo largo de las paredes, pero todas
+				han sido cerradas con clavos hace mucho tiempo.";
 		],
 		cheap_scenery
 			CS_FEM 'puerta' 'puertas\\p' "Puertas normales, pero viejas y desgastadas, con algunas telarañas.",
@@ -844,9 +867,9 @@ Object StorageRoom "Trastero"
 		description [;
 			if(FlagIsSet(F_STARTED_FIRE)) "El fuego ha llegado también al almacén,
 				convirtiendo las telarañas y el polvo en cenizas. ";
-			else print "Un gran almacén, que ahora está vacío salvo por las telarañas y el polvo. ";
-			"Algo de luz viene del norte y del oeste. Un pasadizo más pequeño y oscuro conduce al este. Hay un
-				letrero amarillo sobre el pasadizo oscuro.";
+			"Un gran almacén, que ahora está vacío salvo por las telarañas y el polvo.
+				Algo de luz viene del norte y del oeste. Un pasadizo más pequeño y
+				oscuro conduce al este. Hay un letrero amarillo sobre el pasadizo oscuro.";
 		],
 		before [;
 			Go:
@@ -924,8 +947,6 @@ Object -> Table "mesa"
 		description "Es una mesa de madera muy robusta cubierta con un mantel de terciopelo negro.",
 	has static scenery female;
 
-Constant BurntDesc "Cuando te falta el aliento y el calor te hace perder el conocimiento, lo último que oyes es una risa a lo lejos...";
-
 Object -> EvilBook "libro rojo"
 	with
 		number 0,
@@ -991,11 +1012,11 @@ Object -> EvilBook "libro rojo"
 						"^Las llamas te rodean ahora. Sin embargo, deberías poder llegar a la salida.";
 				11:
 					deadflag=4;
-					"¡Las llamas cubren todas las salidas! El fuego se cierne a tu alrededor con una ferocidad antinatural. ", (string) BurntDesc;
+					"¡Las llamas cubren todas las salidas! El fuego se cierne a tu alrededor con una ferocidad antinatural. ", (string) TXT_SHORT_OF_BREATH;
 			}
 			if(self.number > 7 && location ~= Library or TopOfStairs) {
 				deadflag = 4;
-				"El calor es demasiado para ti y te desplomas en el suelo. ", (string) BurntDesc;
+				"El calor es demasiado para ti y te desplomas en el suelo. ", (string) TXT_SHORT_OF_BREATH;
 			}
 		],
 		add_to_scope [;

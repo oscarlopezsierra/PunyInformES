@@ -214,7 +214,7 @@ Object -> Josh "Josh"
 		talk_array array_charla_josh,
 	has proper animate;
 
-#Ifv5;
+#Iftrue #version_number > 4;
 [Initialise ozmoo_colours;
 #IfNot;
 [Initialise;

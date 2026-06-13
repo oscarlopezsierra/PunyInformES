@@ -20,7 +20,7 @@ Verb 'pide' 'pidele' 'pedir'
     * noun 'a//' creature        				-> AskFor reverse
 	* 'a//' creature 'que' topic				-> AskTo;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'rompe' 'golpea' 'romper' 'destruye' 'patea' 'patear'
 	'ataca' 'mata' 'asesina' 'atacar' 'matar'
 	* noun                                      -> Attack
@@ -34,7 +34,7 @@ Verb 'rompe' 'golpea' 'destruye' 'patea' 'destruir'
 	* noun 'con' held                          	-> Attack;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'escala' 'trepa' 'trepar'
     * 'a//' noun            					-> Climb
     * noun                                		-> Climb
@@ -55,7 +55,7 @@ Verb 'cierra' 'cerrar'
     * noun 'con' 'pestillo'        				-> Lock
     * noun 'con' held                    		-> Lock;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'corta' 'cortar'
     * noun                               		-> Cut
     * noun 'con' held                    		-> Attack;
@@ -65,7 +65,7 @@ Verb 'corta'
     * noun 'con' held                    		-> Attack;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'cava' 'excava' 'cavar'
     * 'en' noun                					-> Dig
     * noun                              		-> Dig
@@ -79,7 +79,7 @@ Verb 'cava' 'excava'
     * 'en' noun 'con' held              		-> Dig;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'bebe' 'beber'
     * noun                               		-> Drink;
 #Ifnot;
@@ -87,7 +87,7 @@ Verb 'bebe'
     * noun                               		-> Drink;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'deja' 'suelta' 'dejar' 'soltar'
     * multiheld                          		-> Drop
     * 'a//' noun            					-> Drop
@@ -105,7 +105,7 @@ Verb 'deja' 'suelta' 'soltar'
     * multiexcept 'encima' 'de' noun     		-> PutOn;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'tira' 'tirar'
     * 'de' noun                          		-> Pull
     * multiheld                          		-> Drop
@@ -131,7 +131,7 @@ Verb 'tira'
     * held 'contra' noun                 		-> ThrowAt;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'come' 'comete' 'comerse' 'comerte' 'comer'
     * held                -> Eat;
 #Ifnot;
@@ -139,7 +139,7 @@ Verb 'come' 'comete' 'comerse' 'comerte'
     * held                -> Eat;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'entra' 'cruza' 'entrar' 'cruzar'
 	*                                   -> GoIn
 	* noun                              -> Enter;
@@ -152,7 +152,7 @@ Verb 'entra' 'cruza'
 Verb 'examina' 'x//' 'ex'
 	* noun -> Examine;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'sal' 'fuera' 'afuera' 'salte' 'bajate' 'levantate' 'bajarse'
     'salirse' 'bajarte' 'salirte' 'salir'
     *                                   -> Exit
@@ -168,7 +168,7 @@ Verb 'sal' 'fuera' 'afuera' 'salte' 'bajate' 'levantate' 'bajarse'
     * 'afuera'                          -> Exit;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'baja' 'bajar'
     *                                   -> GoDown
     * 'de' noun                         -> GetOff;
@@ -178,7 +178,7 @@ Verb 'baja'
     * 'de' noun                         -> GetOff;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'llena' 'rellena' 'llenar'
     * noun                           	-> Fill;
 #Ifnot;
@@ -186,7 +186,7 @@ Verb 'llena' 'rellena'
     * noun                           	-> Fill;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'coge' 'toma' 'recoge' 'coger' 'tomar'
   * multi                             	-> Take
   * 'a//' creature                    	-> Take
@@ -198,7 +198,7 @@ Verb 'coge' 'toma' 'recoge'
   * multiinside 'de' noun             	-> Remove;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'da' 'dar' 'dale' 'ofrece'
     * held 'a//' creature        		-> Give
     * 'a//' creature held        		-> Give reverse
@@ -215,7 +215,7 @@ Verb 'da' 'dale' 'ofrece'
 	rfalse;
 ];
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'anda' 'camina' 'corre' 'ir' 've' 'vete'
 	'andar' 'correr'
     * noun=ADirection                   -> Go
@@ -236,7 +236,7 @@ Verb 'anda' 'camina' 'corre' 'ir' 've' 'vete'
     * 'por' noun                        -> Enter;
 #Endif;
 #IfDef OPTIONAL_EXTENDED_VERBSET;
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'pon' 'mete' 'echa' 'inserta' 'coloca' 'poner' 'meter' 'echar'
   * multiexcept 'en' container                              	-> Insert
   * multiexcept 'en' noun                                    	-> PutOn
@@ -272,7 +272,7 @@ Verb 'pon' 'mete' 'echa' 'inserta' 'coloca' 'poner'
   * 'el' 'cerrojo'/'pestillo'/'cierre' 'a//' noun 'con' held 	-> Lock;
 #Endif;
 #Ifnot;
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'pon' 'mete' 'echa' 'inserta' 'coloca' 'poner' 'meter' 'echar'
   * multiexcept 'en' container                              	-> Insert
   * multiexcept 'en' noun                                    	-> PutOn
@@ -316,7 +316,7 @@ Verb 'inventario' 'i//'
 	* 											-> Inv;
 #Endif;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'salta' 'saltar'
     *                                    		-> Jump
     * noun                               		-> JumpOver
@@ -337,7 +337,7 @@ Verb 'escucha' 'oye' 'oir'
     * 'a//' noun            					-> Listen
     * noun                               		-> Listen;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'mira' 'm//' 'ver' 'mirar'
     *                                    		-> Look
     * 'a//' creature                    		-> Examine
@@ -368,7 +368,7 @@ Verb 'abre' 'abrir'
 Verb 'arrastra'
 	* noun                                      -> Pull;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'empuja' 'mueve' 'mover' 'pulsa' 'pulsar'
     * noun                               		-> Push
     * noun 'a//' noun                			-> Transfer
@@ -385,7 +385,7 @@ Verb 'empuja' 'mueve' 'mover' 'pulsa'
 Verb 'ponte' 'ponerse' 'ponerte' 'ponerme'
 	* held                              		-> Wear;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'lee' 'leer'
     * noun                               		-> Examine
     * 'sobre' topic 'en' noun        			-> Consult reverse
@@ -397,7 +397,7 @@ Verb 'lee'
     * topic 'en' noun                			-> Consult reverse;
 #EndIf;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'saca' 'sacar'
 	* multiinside 'de' noun             		-> Remove
 	* 'a//' creature 'de' noun          		-> Remove;
@@ -411,7 +411,7 @@ Verb 'sacate' 'quitate' 'sacarse' 'quitarse' 'quitarte' 'sacarte' 'sacarme' 'qui
 	* noun                              		-> Disrobe;
 #EndIf;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'lava' 'limpia' 'pule' 'abrillanta' 'friega' 'frota'
 	'lavar' 'pulir' 'fregar' 'frotar'
     * noun                               		-> Rub
@@ -423,7 +423,7 @@ Verb 'lava' 'limpia' 'pule' 'abrillanta' 'friega' 'frota'
     * 'a//' creature                    		-> Rub;
 #EndIf;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'busca' 'buscar'
     * 'en' noun                          		-> Search
     * topic 'en' noun                 			-> Consult reverse
@@ -442,7 +442,7 @@ Verb 'busca'
 Verb 'registra'
 	* noun                         		        -> Search;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'grita' 'gritar'
 	* topic 'a//' creature                  	-> Answer
 	* 'a//' noun                            	-> ShoutAt
@@ -461,7 +461,7 @@ Verb 'muestra' 'ensena' 'mostrar'
     * 'a//' creature held        				-> Show reverse
     * held 'a//' creature        				-> Show;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'echate' 'sientate' 'echarse' 'sentar' 'echarte'
     * 'en' noun                          		-> Enter;
 #Ifnot;
@@ -482,7 +482,7 @@ Verb 'enciende' 'prende' 'encender'
 Verb 'enciende' 'prende' 'encender'
     * noun            							-> SwitchOn;
 #EndIf;
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'desconecta' 'apaga' 'apagar'
     * noun                               		-> SwitchOff
     * 'a//' creature                    		-> SwitchOff;
@@ -492,7 +492,7 @@ Verb 'desconecta' 'apaga'
     * 'a//' creature                    		-> SwitchOff;
 #EndIf;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'cuenta' 'narra' 'explica' 'habla' 'contar' 'narrar' 'hablar'
     * creature 'de' topic        				-> Tell
     * creature 'sobre' topic        			-> Tell
@@ -522,7 +522,7 @@ Verb 'cuenta' 'narra' 'explica' 'habla' 'contar'
     * topic 'a//' creature        				-> Tell reverse;
 #EndIf;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'ata' 'enchufa' 'une' 'atar' 'unir'
     * noun                               		-> Tie
     * 'a//' creature                    		-> Tie
@@ -536,7 +536,7 @@ Verb 'ata' 'enchufa' 'une' 'unir'
     * noun 'a//' noun                      		-> Tie;
 #EndIf;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'toca' 'tocar'
     * noun                               		-> Touch
     * 'a//' creature                    		-> Touch;
@@ -546,7 +546,7 @@ Verb 'toca'
     * 'a//' creature                    		-> Touch;
 #EndIf;
 
-#ifV3;
+#Iftrue #version_number < 5;
 Verb 'gira' 'atornilla' 'desatornilla' 'girar'
     * noun                               -> Turn;
 #Ifnot;
@@ -1154,7 +1154,7 @@ Array _PutOnMessages static -->
 
 #IfDef OPTIONAL_EXTENDED_VERBSET;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'sopla' 'soplar'
     * noun                               		-> Blow;
 #Ifnot;
@@ -1166,7 +1166,7 @@ Verb 'tonto' 'bobo' 'idiota'
     *                                    		-> Mild
     * topic                            			-> Mild;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'quema' 'quemar'
     * noun                               		-> Burn
     * 'a//' creature                    		-> Burn
@@ -1191,7 +1191,7 @@ Verb 'consulta'
     * noun 'acerca' 'de' topic            		-> Consult
     * topic 'en' noun            				-> Consult reverse;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'vacia' 'vaciar'
     * noun                               		-> Empty
     * noun 'dentro' 'de' noun            		-> EmptyT
@@ -1207,7 +1207,7 @@ Verb 'vacia'
     * noun 'encima' 'de' noun            		-> EmptyT;
 #EndIf;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'besa' 'abraza' 'besar'
     * creature                           		-> Kiss
     * 'a//' creature                    		-> Kiss;
@@ -1220,7 +1220,7 @@ Verb 'besa' 'abraza'
 Verb 'no'
 	*                                           -> No;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'reza' 'rezar'
     *                                    		-> Pray;
 #Ifnot;
@@ -1228,7 +1228,7 @@ Verb 'reza'
     *                                    		-> Pray;
 #EndIf;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'ajusta' 'fija' 'fijar'
     * noun                               		-> Set
     * noun 'en'/'a//' topic        				-> SetTo;
@@ -1242,7 +1242,7 @@ Verb 'mierda' 'jode' 'joder' 'puta' 'cono' 'cabron' 'puto'
     *                                   		-> Strong
     * topic                            			-> Strong;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'canta' 'cantar'
     *                    						-> Sing;
 #Ifnot;
@@ -1253,7 +1253,7 @@ Verb 'canta'
 Verb 'duerme' 'dormir' 'descansa'
     *                    						-> Sleep;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'perdon' 'disculpa'
     *                                   		-> Sorry;
 #Ifnot;
@@ -1261,7 +1261,7 @@ Verb 'perdon' 'perdona' 'disculpa'
     *                                   		-> Sorry;
 #EndIf;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'retuerce' 'aprieta' 'estruja' 'tuerce' 'torcer' 'apretar' 'retorcer'
     * noun                               		-> Squeeze
     * 'a//' creature                    		-> Squeeze;
@@ -1271,7 +1271,7 @@ Verb 'retuerce' 'aprieta' 'estruja' 'tuerce' 'torcer' 'apretar' 'retorcer'
     * 'a//' creature                    		-> Squeeze;
 #EndIf;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'nada' 'nadar' 'bucea' 'bucear'
     *                                    		-> Swim;
 #Ifnot;
@@ -1279,7 +1279,7 @@ Verb 'nada' 'bucea'
     *                                    		-> Swim;
 #EndIf;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'meneate' 'menearse' 'balancear' 'columpiar'
     * 'en' noun                          		-> Swing;
 #Ifnot;
@@ -1288,7 +1288,7 @@ Verb 'balanceate' 'columpiate' 'meneate' 'balancear'
     * 'en' noun                          		-> Swing;
 #EndIf;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'saborea' 'prueba' 'probar' 'lame' 'lamer'
     * noun                               		-> Taste
     * 'a//' noun            					-> Taste;
@@ -1301,7 +1301,7 @@ Verb 'saborea' 'prueba' 'probar' 'lame'
 Verb 'piensa' 'pensar'
     *                                    		-> Think;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'transfiere' 'cambia'
     * noun 'a//' noun                     -> Transfer;
 #Ifnot;
@@ -1314,7 +1314,7 @@ Verb 'despierta' 'despertar'
     * creature                           		-> WakeOther
     * 'a//' creature                    		-> WakeOther;
 
-#IfV3;
+#Iftrue #version_number < 5;
 Verb 'sacude' 'agita' 'sacudir' 'agitar'
     * creature                          		-> Attack
     * 'a//' creature                    		-> Attack
@@ -1504,8 +1504,13 @@ Verb meta 'oops' 'ups'
 	*                                           -> Oops
 	* special                                   -> OopsCorrection;
 
-Verb meta 'restart' 'reiniciar'
+#Iftrue #version_number < 4;
+Verb meta 'restart' 'reinicia'
 	*                                           -> Restart;
+#Ifnot;
+Verb meta 'restart' 'reinicia' 'reiniciar'
+	*                                           -> Restart;
+#Endif;
 
 Verb meta 'restore' 'cargar'
 	*                                           -> Restore;
@@ -1937,6 +1942,7 @@ Array _GotoSubBuffer --> (1 + (GOTOSUB_BUFFER_SIZE + 1)/2); ! Add an extra word 
 
 	move noun to player;
 	scope_modified = true;
+	update_moved = true;
 	"Purloined.";
 ];
 
@@ -2198,7 +2204,7 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 ];
 
 [ Look _obj _top_ceil _ceil _describe_room _you_can_see_1 _you_can_see_2 
-		_desc_prop _last_level _action _result;
+		_desc_prop _action _result;
 	if(input_action == ##Look) PrintMsg(MSG_LOOK_BEFORE_ROOMNAME);
 	if((lookmode == 1 && location hasnt visited) || lookmode == 2) _describe_room = true;
 #Iftrue #version_number > 3;
@@ -2207,12 +2213,12 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 
 	! Print the room name
 #Ifdef OPTIONAL_NO_DARKNESS;
-	_ceil = ScopeCeiling(player, _last_level);
+	_ceil = ScopeCeiling(player);
 #Ifnot;
 	if(location == thedark)
 		_ceil = location;
 	else
-		_ceil = ScopeCeiling(player, _last_level);
+		_ceil = ScopeCeiling(player);
 #Endif;
 
 	_top_ceil = _ceil;
@@ -2297,7 +2303,8 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 			_you_can_see_1 = _ListObjsInOnMsg;
 		}
 		_you_can_see_2 = ".^";
-		if(PrintContents(_you_can_see_1, _ceil, true)) print (string) _you_can_see_2;
+		if(PrintContents(_you_can_see_1, _ceil, WORKFLAG_BIT)) 
+			print (string) _you_can_see_2;
 
 
 #IfDef OPTIONAL_PRINT_SCENERY_CONTENTS;
@@ -2378,10 +2385,12 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 #Endif;
 	_ancestor = CommonAncestor(player, noun);
 
+#Ifndef OPTIONAL_NO_ADD_TO_SCOPE;
 	if (_ancestor == 0) {
 		_i = _ObjectScopedBySomething(noun);
 		if (_i) _ancestor = CommonAncestor(player, _i);
 	}
+#Endif;
 
 	if(noun in player) { PrintMsg(MSG_TAKE_ALREADY_HAVE); rtrue; }
 	if(ObjectIsUntouchable(noun, false, true)) rtrue;
@@ -2508,9 +2517,9 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 	if(_new_location == 0) {
 		if(real_location provides cant_go) {
 #IfDef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 			if(debug_flag & 1) print "[ ~", (name) real_location, "~.cant_go() ]^";
-#Endif;
+!#Endif;
 #EndIf;
 			PrintOrRun(real_location, cant_go);
 			rtrue;
@@ -2519,9 +2528,9 @@ Constant _REAL_LOCATION_TEXT " *** real_location ***";
 	}
 
 #IfDef DEBUG;
-#Iftrue #version_number < 5;
+!#Iftrue #version_number < 5;
 	if(debug_flag & 1) print "[ ~", (name) _new_location, "~.before() ]^";
-#Endif;
+!#Endif;
 #EndIf;
 	action = ##Going;
 	if(RunRoutines(_new_location, before)) { action = ##Go; rtrue; }
